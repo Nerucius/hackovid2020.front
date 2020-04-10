@@ -19,6 +19,10 @@
 
   #toast-container {padding-top: 10px}
   .v-snack { padding-top: 10px; }
+  .v-content{
+    /* Need to adjust padding due to extended toolbar */
+    padding-top: 128px !important;
+  }
 </style>
 
 <style scoped>
@@ -125,9 +129,11 @@ export default {
     Footer,
   },
 
-  metaInfo:{
-    title: "%PLATFORM% Platform",
-    titleTemplate: '%s | %PLATFORM%',
+  metaInfo() {
+    return {
+      title: this.$t('app.name'),
+      titleTemplate: `%s | ${this.$t('app.name')}`,
+    }
   },
 
   data() {

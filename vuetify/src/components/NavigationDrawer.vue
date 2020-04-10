@@ -119,39 +119,16 @@
           </v-expansion-panel-content>
         </v-expansion-panel>
 
-        <v-divider />
 
-        <!--
-          <v-list-tile :to="{name:'account-projects'}" exact>
-            <v-list-tile-action>
-              <v-icon>work</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>{{ $t("navigation.projects") }}</v-list-tile-title>
-          </v-list-tile>
-
-          <v-list-tile :to="{name:'account-structures'}" exact>
-            <v-list-tile-action>
-              <v-icon>school</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>{{ $t("navigation.structures") }}</v-list-tile-title>
-          </v-list-tile>
-
-          <v-list-tile :to="{name:'account'}" exact>
-            <v-list-tile-action>
-              <v-icon>public</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-title>{{ $t("navigation.commissioners") }}</v-list-tile-title>
-          </v-list-tile>
-          -->
       </v-flex>
 
 
       <v-spacer />
 
-      <v-divider />
+      <!-- <v-divider />
       <v-flex shrink>
         <ThemeSelector />
-      </v-flex>
+      </v-flex> -->
     </v-layout>
   </v-navigation-drawer>
 </template>

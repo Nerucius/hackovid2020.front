@@ -3,9 +3,8 @@
 
 <template>
 
-
   <v-layout justify-space-between row style="overflow-x:hidden">
-    <v-flex v-for="button in buttons" :key="button.name" shrink px-0 class="text-xs-center">
+    <v-flex v-for="button in buttons" :key="button.name" shrink px-0 pb-2 class="text-xs-center">
       <v-layout row wrap>
         <v-flex xs12 px-2>
           <v-btn small flat fab :color="button.color">

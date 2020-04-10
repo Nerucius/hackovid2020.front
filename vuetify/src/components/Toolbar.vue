@@ -7,26 +7,31 @@
   background-color: rgba(255,255,255,0.1)
 }
 .v-toolbar__extension{
-  height: auto;
-  padding: 0px;
+  height: auto !important;
+  padding: 0px !important;
 }
 </style>
 
 
 <template>
-  <v-toolbar extended scroll-off-screen app dense dark flat color="primary" style="z-index:999">
+  <v-toolbar app extended scroll-off-screen dense dark color="primary" style="z-index:999">
     <v-toolbar-side-icon v-if="showToggleDrawer" @click="$emit('toggleDrawer')" />
     <v-toolbar-title class="headline text-uppercase">
       <router-link :to="{name:'home'}" active-class="router-link">
         <span style="text-transform:none">
-          <small>MerCoVCat</small>
+          <small>{{ $t('app.name')}}</small>
         </span>
       </router-link>
     </v-toolbar-title>
 
+    <v-spacer />
 
-    <template v-slot:extension>
-      <div style="background-color:white">
+    <v-toolbar-items>
+        <LoginLogoutButton />
+    </v-toolbar-items>
+
+    <template v-if="showExtension" v-slot:extension>
+      <div style="background-color:white; width:100%">
         <FeedNavigation />
       </div>
     </template>
@@ -37,11 +42,11 @@
 <script>
 import LoginLogoutButton from "@/components/toolbar/LoginLogoutButton";
 import LanguageSelector from "@/components/toolbar/LanguageSelector";
-import FeedNavigation from "@/components/home/FeedNavigation";
+import FeedNavigation from "@/components/toolbar/FeedNavigation";
 
 export default {
   components: {
-    // LoginLogoutButton,
+    LoginLogoutButton,
     // LanguageSelector,
     FeedNavigation
   },
@@ -63,6 +68,10 @@ export default {
   computed: {
     links(){
       return [];
+    },
+
+    showExtension(){
+      return this.$route.name == 'home'
     },
 
     _links(){

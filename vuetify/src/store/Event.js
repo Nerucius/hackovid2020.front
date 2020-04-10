@@ -15,14 +15,6 @@ export default {
   state: {
     current: null,
     items: {},
-
-    genders: [
-      {value:"", name:"misc.notSpecified"},
-      {value:"MALE", name:"models.userGender.male"},
-      {value:"FEMALE", name:"models.userGender.female"},
-      {value:"OTHER", name:"models.userGender.other"},
-    ],
-
   },
 
   mutations: {
@@ -40,9 +32,45 @@ export default {
   actions: {
     load: async function (context, payload={}) {
       let items = [
-        {id: 1, title:"Test title 1", shopId:1, type:"NEW_PRODUCT", createdAt:"2020-04-10T15:29:26.930Z"},
-        {id: 2, title:"Test title 1", shopId:1, type:"NEW_SHOP", createdAt:"2020-04-10T15:29:26.930Z"},
-        {id: 3, title:"Test title 1", shopId:1, type:"NEW_PROMOTION", createdAt:"2020-04-10T15:29:26.930Z"},
+        {
+          id: 1,
+          type:"NEW_SHOP",
+          what:{
+            _type: "Shop",
+            id: "1",
+            name: "Floristeria Jimenez",
+            image: {
+              url: "/img/static/shop1.jpg"
+            }
+          },
+          createdAt:"2020-04-10T15:29:26.930Z"
+        },
+        {
+          id: 2,
+          type:"NEW_SHOP",
+          what:{
+            _type: "Shop",
+            id: "1",
+            name: "Farmacia Gonzalez",
+            image: {
+              url: "/img/static/shop2.jpg"
+            }
+          },
+          createdAt:"2020-04-10T15:29:26.930Z"
+        },
+        {
+          id: 3,
+          type:"NEW_SHOP",
+          what:{
+            _type: "Shop",
+            id: "1",
+            name: "Carnisseria de la Esquina",
+            image: {
+              url: "/img/static/shop3.jpg"
+            }
+          },
+          createdAt:"2020-04-10T15:29:26.930Z"
+        },
       ]
       context.commit("ADD", items)
     return;

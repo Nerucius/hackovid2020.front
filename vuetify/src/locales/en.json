@@ -1,7 +1,11 @@
 {
+  "app":{
+    "name": "Mercovid"
+  },
   "pages": {
+
     "login": {
-      "welcomeMessage": "Welcome to %PLATFORM%",
+      "welcomeMessage": "Welcome to",
       "forgotPassword": "Forgot your password?",
       "registerCTA": "Register now!"
     },
@@ -43,6 +47,7 @@
     },
 
     "home": {
+      "title": "Feed",
       "mainTitle": "Welcome to %PLATFORM%",
       "worldmapTitle":"World Map",
       "latestTitle":"Latest Updates",

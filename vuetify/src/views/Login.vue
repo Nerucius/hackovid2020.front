@@ -1,19 +1,19 @@
 <template>
   <v-layout row justify-center>
     <v-flex xs12 md10 lg8 xl6>
-      <v-card class="elevation-12">
-        <v-toolbar dense flat dark color="primary">
+      <v-card flat>
+        <!-- <v-toolbar dense flat dark color="primary">
           <v-toolbar-title>{{ $t('forms.titles.login') }}</v-toolbar-title>
           <v-spacer />
           <v-toolbar-items>
             <LanguageSelector />
           </v-toolbar-items>
-        </v-toolbar>
+        </v-toolbar> -->
 
+        <v-card-title>
+          <h2>Log into your account</h2>
+        </v-card-title>
         <v-card-text>
-          <!-- <div class="text-xs-center mb-3">
-            <h1 class="title">{{ $t("pages.login.welcomeMessage") }}</h1>
-          </div> -->
 
           <!-- Logo -->
           <v-layout row wrap justify-space-around align-center px-2>

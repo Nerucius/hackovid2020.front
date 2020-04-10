@@ -2,10 +2,10 @@
   <v-card flat>
     <v-card-text>
       <h1 class="subheading">
-        %PLATFORM% Platform |
+        {{ $t('app.name') }} |
         <small>
           <router-link :to="{name:'about'}">
-            {{ $t('pages.about.mainTitle') }}
+            {{ $t('navigation.links.about') }}
           </router-link>
         </small>
       </h1>

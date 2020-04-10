@@ -1,9 +1,5 @@
 <template>
   <v-layout row wrap align-content-start>
-    <!-- <v-flex xs12>
-      <FeedNavigation />
-    </v-flex> -->
-
     <v-flex xs12>
       <Feed />
     </v-flex>
@@ -15,12 +11,16 @@
 // import { GeoJSONCountriesDetail, Countries } from "@/plugins/i18n";
 
 import Feed from "@/components/home/Feed";
-import FeedNavigation from "@/components/home/FeedNavigation";
 
 export default {
   components: {
     Feed,
-    FeedNavigation
+  },
+
+  metaInfo() {
+    return {
+      title: this.$t('pages.home.title'),
+    }
   },
 
   data() {
