@@ -21,8 +21,10 @@ Vue.http.interceptors.push(function(request) {
 // Add patch method to API resources
 const PATCH =  {patch: {method: "PATCH"}, update: {method: "PATCH"}}
 
-export const CurrentUserResource          = Vue.resource(API_SERVER + "/v1/user/");
-export const UserResource                 = Vue.resource(API_SERVER + "/v1/users{/id}/", {}, PATCH);
+export const UserResource                 = Vue.resource(API_SERVER + "/api/user{/id}/", {}, PATCH);
+export const UserLoginResource            = Vue.resource(API_SERVER + "/api/user/login");
+
+export const EventResource                 = Vue.resource(API_SERVER + "/api/event{/id}/", {}, PATCH);
 // export const ProjectResource              = Vue.resource(API_SERVER + "/v1/projects{/id}/", {}, PATCH);
 // export const ProjectPhaseResource         = Vue.resource(API_SERVER + "/v1/projectphases{/id}/", {}, PATCH);
 // export const ProjectAtPhaseResource       = Vue.resource(API_SERVER + "/v1/projectatphases{/id}/", {}, PATCH);

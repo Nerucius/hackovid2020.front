@@ -64,7 +64,7 @@
       />
       <!-- Content -->
       <v-content>
-        <v-container grid-list-xl fill-height>
+        <v-container pa-0 fill-height>
           <!-- Main Content Area -->
           <transition
             name="fade"
@@ -95,14 +95,13 @@
           :color="toast.color"
           :timeout="toast.timeout"
           style="z-index:999999"
-          >
-          <span v-html="toast.message"></span>
+        >
+          <span v-html="toast.message" />
           <v-btn dark flat fab @click="toast.close()">
             <v-icon>close</v-icon>
           </v-btn>
         </v-snackbar>
         <!-- /Snackbars -->
-
       </v-content>
 
       <!-- Cookie Policy Toast -->
@@ -147,7 +146,7 @@ export default {
     },
     shouldShowNavigation(){
       // TODO: completely disabled navigation drawer
-      return false;
+      return true;
 
       // return this.$store.getters['user/isLoggedIn']
     },

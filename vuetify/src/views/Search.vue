@@ -5,7 +5,6 @@
       <h3>
         {{ $t('pages.search.searchFound', {number:searchResultsCount}) }}
       </h3>
-
     </v-flex>
 
     <v-flex xs12>
@@ -22,7 +21,6 @@
         </v-flex>
       </v-layout>
     </v-flex>
-
   </v-layout>
 </template>
 
@@ -43,16 +41,16 @@ export default {
     }
   },
 
+  components: {
+    StructureCard,
+    ProjectCard
+  },
+
   data() {
     return {
       searchResults : [],
       searchResultsCount : 0,
     }
-  },
-
-  components: {
-    StructureCard,
-    ProjectCard
   },
 
   computed: {

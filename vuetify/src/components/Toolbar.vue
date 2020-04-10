@@ -1,4 +1,4 @@
-<style scoped>
+<style>
 .v-toolbar__title .router-link{
   color:inherit;
   text-decoration: inherit;
@@ -6,100 +6,44 @@
 .v-toolbar__title .router-link:hover{
   background-color: rgba(255,255,255,0.1)
 }
+.v-toolbar__extension{
+  height: auto;
+  padding: 0px;
+}
 </style>
 
 
 <template>
-  <v-toolbar scroll-off-screen app dark flat color="primary" style="z-index:999">
+  <v-toolbar extended scroll-off-screen app dense dark flat color="primary" style="z-index:999">
     <v-toolbar-side-icon v-if="showToggleDrawer" @click="$emit('toggleDrawer')" />
     <v-toolbar-title class="headline text-uppercase">
       <router-link :to="{name:'home'}" active-class="router-link">
         <span style="text-transform:none">
-          Platform
-        </span>
-        <span style="font-size:70%" class="font-weight-light hidden-md-and-down">
-          &nbsp; Open Platform
+          <small>MerCoVCat</small>
         </span>
       </router-link>
     </v-toolbar-title>
-    <v-spacer />
 
-    <v-flex>
-      <v-form @submit.prevent="search()" ref="searchForm">
-        <v-text-field
-          v-model="searchTerm"
-          class="pa-0"
-          color="grey lighten-3"
-          hide-details
-          single-line
-          prepend-icon="search"
-          browser-autocomplete="off"
-          :rules="[rules.minimunLength]"
-          :placeholder="$t('toolbar.searchPlaceholder')"
-        />
-      </v-form>
-    </v-flex>
 
-    <v-spacer />
+    <template v-slot:extension>
+      <div style="background-color:white">
+        <FeedNavigation />
+      </div>
+    </template>
 
-    <!-- Desktop toolbar items -->
-    <v-toolbar-items class="hidden-sm-and-down">
-      <!-- Full width items -->
-      <v-btn v-for="link in links.filter(l => !l.miniOnly)"
-             :key="link.name" flat
-             exact
-             :to="{name:link.name}"
-      >
-        {{ $t(link.label) }}
-      </v-btn>
-
-      <v-divider vertical />
-
-      <LanguageSelector />
-
-      <v-divider vertical />
-
-      <LoginLogoutButton />
-    </v-toolbar-items>
-
-    <!-- Mobile toolbar links -->
-    <v-menu bottom left class="hidden-md-and-up">
-      <v-btn slot="activator" large dark icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
-
-      <v-list class="pa-0">
-        <template v-for="(link,idx) in links">
-          <v-list-tile v-if="!link.divider"
-                       :key="link.name" exact :to="{name:link.name}"
-          >
-            {{ $t(link.label) }}
-          </v-list-tile>
-
-          <v-divider v-else :key="idx" />
-        </template>
-
-        <v-divider />
-
-        <v-list-tile v-if="!userIsLoggedIn" exact :to="{name:'login'}">
-          {{ $t("actions.login") }}
-        </v-list-tile>
-        <v-list-tile v-else @click="logout()">
-          {{ $t("actions.logout") }}
-        </v-list-tile>
-      </v-list>
-    </v-menu>
   </v-toolbar>
 </template>
 
 <script>
 import LoginLogoutButton from "@/components/toolbar/LoginLogoutButton";
 import LanguageSelector from "@/components/toolbar/LanguageSelector";
+import FeedNavigation from "@/components/home/FeedNavigation";
 
 export default {
   components: {
-    LoginLogoutButton,
-    LanguageSelector
+    // LoginLogoutButton,
+    // LanguageSelector,
+    FeedNavigation
   },
 
   props: ["showToggleDrawer"],
@@ -108,7 +52,7 @@ export default {
     return{
       searchTerm: "",
       menuLinks: [
-        {name: "home", label:"navigation.links.home"},
+        // {name: "home", label:"navigation.links.home"},
       ],
       rules: {
         minimunLength: v => (!v || v.length >= 3) || this.$t("forms.rules.minimunLength", {'length':3}),
@@ -116,12 +60,12 @@ export default {
     }
   },
 
-  created() {
-    this.searchTerm = this.$route.query['term']
-  },
-
   computed: {
     links(){
+      return [];
+    },
+
+    _links(){
       if(this.userIsLoggedIn){
         let links = [
           {miniOnly: true, name:"account", label: this.currentUser.first_name}
@@ -145,6 +89,10 @@ export default {
     currentUser(){
       return this.$store.getters["user/current"]
     }
+  },
+
+  created() {
+    this.searchTerm = this.$route.query['term']
   },
 
   methods: {

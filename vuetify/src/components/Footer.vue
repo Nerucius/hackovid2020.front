@@ -12,7 +12,6 @@
       <br>
 
       <v-layout row wrap>
-
         <!-- <v-flex md4 sm6 xs12>
           <p>
             <router-link :to="{name:'terms-of-service'}">
@@ -39,7 +38,6 @@
             &copy; EnteBrain {{ currentYear }}
           </p>
         </v-flex>
-
       </v-layout>
     </v-card-text>
   </v-card>

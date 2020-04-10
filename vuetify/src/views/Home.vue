@@ -1,19 +1,12 @@
 <template>
   <v-layout row wrap align-content-start>
+    <!-- <v-flex xs12>
+      <FeedNavigation />
+    </v-flex> -->
 
     <v-flex xs12>
-
-        <v-card>
-          <v-card-title>
-            Platform
-          </v-card-title>
-          <v-card-text>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aspernatur harum ipsam at libero, perferendis quae quam eaque repellat laboriosam eum in iste distinctio laudantium ex dolores sed voluptas. Laboriosam doloribus quaerat repellendus quia consequatur ipsam temporibus soluta nostrum odio ducimus, cupiditate laborum deleniti excepturi enim reprehenderit consequuntur obcaecati distinctio exercitationem hic pariatur. Sit quisquam iure veniam sapiente dolores excepturi ab id, quis consectetur quasi magni totam sed vel? Repellat odit assumenda a rerum porro minus autem? Iure provident vitae eum nihil, ad odit aliquam ipsam ipsum temporibus aperiam. Temporibus, adipisci! Nesciunt quod voluptatibus odio facilis amet enim, cumque facere ratione.
-          </v-card-text>
-        </v-card>
-
+      <Feed />
     </v-flex>
-
   </v-layout>
 </template>
 
@@ -21,24 +14,24 @@
 // import { GeoJSONCountries } from "@/plugins/i18n";
 // import { GeoJSONCountriesDetail, Countries } from "@/plugins/i18n";
 
+import Feed from "@/components/home/Feed";
+import FeedNavigation from "@/components/home/FeedNavigation";
+
 export default {
   components: {
+    Feed,
+    FeedNavigation
   },
 
   data() {
-    return {
-    };
+    return {};
   },
 
-  computed: {
-  },
+  computed: {},
 
-  async created(){
-  },
+  async created() {},
 
   methods: {
-
-
     // TODO: Repurpose map code
     // createMap(){
     //   function getColor (value) {
@@ -91,8 +84,6 @@ export default {
     //   this.countryFilterProjects = await this.$store.dispatch("project/search", {country_code})
     //   this.countryFilterProjects.sort( (a,b) => { return a.name.localeCompare(b.name) })
     // }
-
-
   }
 };
 </script>

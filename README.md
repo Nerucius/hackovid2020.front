@@ -26,8 +26,15 @@ To deploy the platform to a new server, first make sure you have installed all o
 
 ### Required software on Host
 
+Recomended deployment platform is any VPS with a preinstalled and managed deployment of DockerCE (For example DigitalOcean's `Docker` Droplet)
+
 1. Docker-CE
-2. Apache2 (mod_headers + mod_ssl + mod_rewrite)
+2. Docker-Composer
+3. Apache2 (mod_headers + mod_proxy + mod_ssl + mod_rewrite)
+    1. `a2enmod proxy`
+    2. `a2enmod rewrite`
+    3. `a2enmod ssl`
+    4. `a2enmod proxy_http`
 
 HTTPS Certificates can be obtained throuh letsencrypt `certbot-auto` software.
 

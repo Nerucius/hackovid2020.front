@@ -3,7 +3,7 @@ import Cookies from "js-cookie";
 import {
   API_SERVER,
   UserResource,
-  CurrentUserResource,
+  UserLoginResource,
 } from "../plugins/resource";
 import { obj2slug } from "../plugins/utils";
 
@@ -99,10 +99,12 @@ export default {
     },
 
     login: async function (context, credentials) {
-        let authentication = (await Vue.http.post(userLoginUrl, credentials))
-        let token = authentication.body.token
-        Cookies.set('authorization', token)
-        await context.dispatch("loadCurrent");
+        // let authentication = (await Vue.http.post(userLoginUrl, credentials))
+        // let token = authentication.body.token
+        // Cookies.set('authorization', token)
+        // await context.dispatch("loadCurrent");
+        let response = (await UserLoginResource.get(credentials))
+        console.log(response)
     },
 
     resetPassword: async function (context, credentials) {

@@ -19,9 +19,9 @@
           <v-layout row wrap justify-space-around align-center px-2>
             <v-flex xs12 pa-0 />
 
-            <v-flex md3 class="hidden-sm-and-down">
+            <!-- <v-flex md3 class="hidden-sm-and-down">
               <v-img src="/img/branding/inspires.png" />
-            </v-flex>
+            </v-flex> -->
 
             <!-- Form to login with credentials -->
             <v-flex v-if="!resetPassword" sm12 md8>
@@ -41,9 +41,9 @@
                 @submit.prevent="submitLogin()"
               >
                 <v-text-field
-                  v-model="credentials.username"
+                  v-model="credentials.mail"
                   prepend-icon="person"
-                  :label="$t('forms.fields.usernameOrEmail')"
+                  :label="$t('forms.fields.email')"
                   :rules="rules"
                   type="text"
                 />
@@ -56,11 +56,11 @@
                 />
               </v-form>
 
-              <div class="text-xs-right">
+              <!-- <div class="text-xs-right">
                 <a href="#forgot-password" @click="resetPassword = true">
                   {{ $t("pages.login.forgotPassword") }}
                 </a>
-              </div>
+              </div> -->
             </v-flex>
 
             <!-- Form to reset password -->
@@ -79,7 +79,7 @@
                 @submit.prevent="submitResetPassword()"
               >
                 <v-text-field
-                  v-model="credentials.username"
+                  v-model="credentials.mail"
                   prepend-icon="person"
                   :label="$t('forms.fields.usernameOrEmail')"
                   :rules="rules"
@@ -145,7 +145,7 @@ export default {
       valid: null,
       validResetPassword: null,
       credentials: {
-        username: "",
+        mail: "",
         password: ""
       },
       rules: [v => !!v || this.$t("forms.rules.requiredField")],
