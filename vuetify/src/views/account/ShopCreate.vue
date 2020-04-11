@@ -89,7 +89,7 @@ export default {
     navigator.geolocation.getCurrentPosition(pos =>{
       let lat = pos.coords.latitude;
       let lon = pos.coords.longitude;
-      shopMap.setView([lat, lon], 15);
+      this.shopMap.setView([lat, lon], 16);
     }, error => {} );
 
   },
