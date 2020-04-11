@@ -6,6 +6,9 @@
     "myShops":{
       "title": "Els meus comerços"
     },
+    "shopCreate":{
+      "title": "Registrar un nou comerç"
+    },
     "account":{
       "title": "El meu compte"
     },
@@ -83,9 +86,10 @@
     },
     "fields": {
       "name": "Nom",
-      "firstName": "Primer cognom",
-      "lastName": "Segon cognom",
+      "firstName": "Nom",
+      "lastName": "Cognoms",
       "email": "Correu electrònic",
+      "streetName": "Carrer",
       "education": "Education Level",
       "institution": "Institution",
       "genderIdentity": "Gender Identity",

@@ -62,7 +62,7 @@ export default {
         let query = {...params}
 
         let response = (await UserResource.get(query)).body
-        let items = response.results
+        let items = response.userDetails
 
         // Iteratively get all pages
         let next = response.next
@@ -135,9 +135,10 @@ export default {
 
     register: async function(context, newUser){
       // await Vue.http.get(userRegisterUrl, {params: {...newUser}});
-      let response = await Vue.http.post(userRegisterUrl, newUser, { emulateJSON: true })
+      // let response = await Vue.http.post(userRegisterUrl, newUser, { emulateJSON: true })
+      let response = await UserResource.save(newUser)
       context.commit("SET_CURRENT", response.body)
-      return response.body
+      // return response.body
     }
   },
 

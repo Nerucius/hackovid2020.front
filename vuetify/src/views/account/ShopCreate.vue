@@ -15,11 +15,18 @@
               :label="$t('forms.fields.name')"
             />
             <v-text-field
-              v-model="shop.name"
+              v-model="shop.description"
               :rules="[rules.required]"
-              counter="100"
-              maxlength="100"
-              :label="$t('forms.fields.name')"
+              :label="$t('forms.fields.description')"
+            />
+            <br>
+            <div id="shopMap" style="width: 100%; height: 200px" />
+            <small>{{shopMapLabel}}</small>
+            <v-text-field
+              v-model="shop.streetName"
+              :rules="[rules.required]"
+              @change="searchStreet"
+              :label="$t('forms.fields.streetName')"
             />
           </v-card-text>
           <v-card-actions>
@@ -35,19 +42,26 @@
 </template>
 
 <script>
+// import
+import { OpenStreetMapProvider } from 'leaflet-geosearch';
+
+const provider = new OpenStreetMapProvider();
+
 export default {
   data() {
     return {
       valid: null,
+      shopMap : null,
+      shopMapMarker: null,
+      shopMapLabel: "",
       shop: {
-        coverImageId: 0,
-        ownerId: this.user.id,
+        // coverImageId: 0,
         // coverImage: 0,
         // latitude: 0,
         // longitude: 0,
         // streetName: "string",
-        // shopCategoryIds: [0],
-        // shopImageIds: [0]
+        shopCategoryIds: [],
+        shopImageIds: []
       },
       rules: {
         required: v => !!v || this.$t("forms.rules.requiredField"),
@@ -61,15 +75,52 @@ export default {
   computed: {
     user() {
       return this.$store.getters["user/current"];
-    }
+    },
   },
 
-  async mounted() {},
+  async mounted() {
+
+    this.shopMap = L.map('shopMap').setView([41.3839254,2.156953], 16);
+    this.shopMap.dragging.disable();
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(this.shopMap);
+
+    navigator.geolocation.getCurrentPosition(pos =>{
+      let lat = pos.coords.latitude;
+      let lon = pos.coords.longitude;
+      shopMap.setView([lat, lon], 15);
+    }, error => {} );
+
+  },
 
   methods: {
+    async searchStreet(){
+      if(!this.shop.streetName){ return }
+
+      // Call search api
+      let results = await provider.search({ query: this.shop.streetName });
+      if(results.length == 0){
+        this.$store.dispatch('toast/error', {message: "No s'ha trobat la direcció"})
+      }
+      let target = results[0]
+
+      this.shopMapLabel = target.label
+      // Clear previous Marker
+      if(this.shopMapMarker){ this.shopMap.removeLayer(this.shopMapMarker) }
+      // Create marker at lat lon and center map
+      this.shopMapMarker = L.marker([target.y, target.x]).addTo(this.shopMap);
+      this.shopMap.setView([target.y, target.x], 18)
+    },
     submit() {
       if (this.$refs.form.validate()) {
         console.log("valid-form");
+        this.shop.ownerId = this.user.id;
+        console.log(this.shop);
+
+        this.$store.dispatch("toast/error", {
+          message: "La api esta rota LOLOL"
+        });
       }
     }
   }

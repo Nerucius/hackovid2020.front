@@ -18,9 +18,25 @@ td {
             <v-flex pt-0>
               <v-layout row wrap justify-center>
                 <v-flex xs12 sm8>
-                  <v-form ref="userPassForm" v-model="steps[0].required.valid">
+                  <v-form ref="form" v-model="valid">
                     <v-text-field
-                      v-model="user.username"
+                      v-model="user.firstName"
+                      :label="$t('forms.fields.lastName')"
+                      :hint="$t('forms.hints.lastName')"
+                      :rules="[rules.required]"
+                      prepend-icon="person"
+                      type="text"
+                    />
+                    <v-text-field
+                      v-model="user.lastName"
+                      :label="$t('forms.fields.firstName')"
+                      :hint="$t('forms.hints.firstName')"
+                      :rules="[rules.required]"
+                      prepend-icon="person"
+                      type="text"
+                    />
+                    <v-text-field
+                      v-model="user.mail"
                       :label="$t('forms.fields.email')"
                       :hint="$t('forms.hints.email')"
                       :rules="[rules.required, rules.isEmail]"
@@ -34,7 +50,7 @@ td {
                       :rules="[rules.required, rules.minimunLength, rules.passwordValid]"
                       prepend-icon="lock"
                       type="password"
-                      @input="$refs.userPassForm.validate()"
+                      @input="$refs.form.validate()"
                     />
                     <v-text-field
                       v-model="user.password2"
@@ -53,7 +69,11 @@ td {
         <v-card-actions class="mt-2 pb-3 px-3">
           <v-spacer />
           <v-flex shrink>
-            <v-btn color="primary" @click="submitRegister()">{{ $t("actions.register") }}</v-btn>
+            <v-btn
+              color="primary"
+              :disabled="!valid"
+              @click="submitRegister()"
+            >{{ $t("actions.register") }}</v-btn>
           </v-flex>
         </v-card-actions>
       </v-card>
@@ -71,14 +91,8 @@ export default {
 
   data() {
     return {
+      valid: true,
       failedRegistration: false,
-      registrationStep: 1,
-      steps: [
-        { title: "Login", required: { valid: false } },
-        { title: "About you", required: { valid: false } },
-        { title: "ToS", required: { acceptedTerms: false } },
-        { title: "Done!", required: { valid: true } }
-      ],
 
       user: {},
       rules: {
@@ -109,15 +123,20 @@ export default {
 
   methods: {
     async submitRegister() {
+      if (!this.valid) {
+        return;
+      }
       let newUser = { ...this.user };
+      delete newUser["password2"];
+
       try {
         let response = await this.$store.dispatch("user/register", newUser);
-        await this.$store.dispatch("user/load");
         await this.$store.dispatch("user/login", {
-          username: newUser.username,
+          mail: newUser.mail,
           password: newUser.password
         });
-        this.$router.push({ name: "account", query: { welcome: true } });
+        this.$store.dispatch("toast/success", this.$t("pages.register.registrationSuccess"));
+        this.$router.push({ name: "home" });
       } catch (error) {
         this.$store.dispatch("toast/error", {
           message: this.$t("pages.register.registrationFailure"),
