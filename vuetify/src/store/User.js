@@ -81,8 +81,8 @@ export default {
       if (currentUserId == null) return;
 
       let response = await UserResource.get({id:currentUserId})
-      console.log(response);
-      // let users = response.data.userDetails
+      let user = response.data
+      context.commit("SET_CURRENT", user);
 
       // for(let user of users){
       //   if(user.userId == currentUserId){
