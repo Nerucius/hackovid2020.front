@@ -23,7 +23,7 @@
 
 
 <template>
-  <v-navigation-drawer app v-model="showDrawer" app temporary style="z-index:1000">
+  <v-navigation-drawer app v-model="showDrawer" app temporary style="z-index:9999">
     <v-layout column justify-start fill-height>
 
       <!-- Avatar and Name -->
