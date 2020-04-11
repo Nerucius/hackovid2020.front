@@ -23,7 +23,7 @@
 
 
 <template>
-  <v-navigation-drawer v-model="showDrawer" app temporary style="z-index:1000">
+  <v-navigation-drawer app v-model="showDrawer" app temporary style="z-index:1000">
     <v-layout column justify-start fill-height>
 
       <!-- Avatar and Name -->
@@ -47,12 +47,22 @@
 
       <v-list>
         <!-- My account -->
-        <v-list-tile to="/account">
+        <v-list-tile to="/account" exact>
           <v-list-tile-action>
             <v-icon color="primary darken-2">person</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>El meu compte</v-list-tile-title>
+            <v-list-tile-title>{{ $t('pages.account.title') }}</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider />
+        <!-- My Shops -->
+        <v-list-tile to="/account/shops">
+          <v-list-tile-action>
+            <v-icon color="red darken-2">store</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>{{ $t('pages.myShops.title') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider />
@@ -62,7 +72,7 @@
             <v-icon color="green darken-2">map</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Mapa</v-list-tile-title>
+            <v-list-tile-title>{{ $t('pages.map.title') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider />
@@ -72,16 +82,7 @@
             <v-icon color="orange darken-2">star</v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
-            <v-list-tile-title>Favorits</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <v-divider />
-        <v-list-tile to="/account/shops">
-          <v-list-tile-action>
-            <v-icon color="red darken-2">store</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-content>
-            <v-list-tile-title>Les meves tendes</v-list-tile-title>
+            <v-list-tile-title>{{ $t('pages.favourites.title') }}</v-list-tile-title>
           </v-list-tile-content>
         </v-list-tile>
         <v-divider />

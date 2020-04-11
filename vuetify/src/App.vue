@@ -1,39 +1,54 @@
 <style>
-  /* Global Styles */
+/* Global Styles */
 
-  ::-webkit-scrollbar {
-      width: 0.65em;
-  }
+::-webkit-scrollbar {
+  width: 0.65em;
+}
 
-  ::-webkit-scrollbar-track {
-    margin-top: -1px;
-    background: rgb(12, 77, 77);
-      /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
-  }
+::-webkit-scrollbar-track {
+  margin-top: -1px;
+  background: rgb(12, 77, 77);
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+}
 
-  ::-webkit-scrollbar-thumb {
-    background:#00796b;
-    border-top: 1px solid lightgray;
-    border-bottom: 1px solid lightgray;
-  }
+::-webkit-scrollbar-thumb {
+  background: #00796b;
+  border-top: 1px solid lightgray;
+  border-bottom: 1px solid lightgray;
+}
 
-  #toast-container {padding-top: 10px}
-  .v-snack { padding-top: 10px; }
+#toast-container {
+  padding-top: 10px;
+}
+.v-snack {
+  padding-top: 10px;
+}
 </style>
 
 <style scoped>
-  /* Transitions */
-  .fade-enter-active,
-  .fade-leave-active {
-    transition-duration: 0.1s;
-    transition-property: opacity;
-    transition-timing-function: ease;
-  }
+/* Transitions */
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.1s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
 
-  .fade-enter,
-  .fade-leave-active {
-    opacity: 0
-  }
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+
+.slide-enter-active {
+  transition: all .3s ease;
+}
+.slide-leave-active {
+  transition: all .3s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+}
+.slide-enter, .slide-leave-to {
+  transform: translateY(60px);
+  /* opacity: 0; */
+}
 </style>
 
 
@@ -53,37 +68,18 @@
 
     <template v-else>
       <!-- Navigation Drawer -->
-      <NavigationDrawer
-        v-if="shouldShowNavigation"
-        ref="navigationDrawer"
-      />
-      <Toolbar
-        ref="toolbar"
-        :show-toggle-drawer="shouldShowNavigation"
-        @toggleDrawer="toggleDrawer()"
-      />
+      <NavigationDrawer v-if="showNavigation" ref="navigationDrawer" />
+      <Toolbar ref="toolbar" :show-toggle-drawer="showNavigation" @toggleDrawer="toggleDrawer()" />
+
       <!-- Content -->
       <v-content>
-        <v-container pa-0 fill-height>
+        <v-container pa-0>
           <!-- Main Content Area -->
-          <transition
-            name="fade"
-            mode="out-in"
-          >
+          <transition name="fade" mode="out-in">
             <router-view :key="routePathKey" />
           </transition>
           <!-- /Main Content Area -->
         </v-container>
-
-        <!-- Footer Area -->
-        <v-container>
-          <v-layout row>
-            <v-flex xs12>
-              <Footer />
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <!-- /Footer Area -->
 
         <!-- Snackbars -->
         <v-snackbar
@@ -95,7 +91,7 @@
           :color="toast.color"
           :timeout="toast.timeout"
           style="z-index:999999"
-        >
+          >
           <span v-html="toast.message" />
           <v-btn dark flat fab @click="toast.close()">
             <v-icon>close</v-icon>
@@ -104,6 +100,9 @@
         <!-- /Snackbars -->
       </v-content>
 
+      <transition name="slide">
+        <Footer v-if="showFooter" />
+      </transition>
       <!-- Cookie Policy Toast -->
       <CookieToast />
     </template>
@@ -122,50 +121,61 @@ export default {
     CookieToast,
     NavigationDrawer,
     Toolbar,
-    Footer,
+    Footer
   },
 
   metaInfo() {
     return {
-      title: this.$t('app.name'),
-      titleTemplate: `%s | ${this.$t('app.name')}`,
-    }
+      title: this.$t("app.name"),
+      titleTemplate: `%s | ${this.$t("app.name")}`
+    };
   },
 
   data() {
     return {
       loading: true,
       active: true,
+      showFooter: true,
     };
   },
 
   computed: {
-    toasts(){
-      return this.$store.getters['toast/all']
+    toasts() {
+      return this.$store.getters["toast/all"];
     },
     theme() {
       return this.$store.getters["preferences/theme"];
     },
-    shouldShowNavigation(){
-      return this.$store.getters['user/isLoggedIn']
+    showNavigation() {
+      return this.$store.getters["user/isLoggedIn"];
     },
-    routePathKey(){
+    routePathKey() {
       // Returns a usable fullRoute key without the hash to use as in-page state
-      return this.$route.fullPath.replace(/#.*/gi, '')
+      return this.$route.fullPath.replace(/#.*/gi, "");
     }
   },
 
   async created() {
     // Block on the user status before allowing to show the app
     // try{
-     this.$store.dispatch("user/loadCurrent");
+    this.$store.dispatch("user/loadCurrent");
     // }catch(error){
-      // this.$store.dispatch("toast/error", {message: 'Failed to login', error})
+    // this.$store.dispatch("toast/error", {message: 'Failed to login', error})
     // }
     this.loading = false;
   },
 
+  async mounted(){
+    window.addEventListener('scroll', this.handleScroll);
+  },
+
   methods: {
+    handleScroll(){
+      if(this.showFooter)
+        this.showFooter = window.scrollY < 310;
+      else
+        this.showFooter = window.scrollY < 50;
+    },
     toggleDrawer() {
       this.$refs.navigationDrawer.toggleDrawer();
     }

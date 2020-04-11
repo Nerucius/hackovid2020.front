@@ -10,6 +10,7 @@ import toast from "./store/Toast"
 // API stores
 import user from "./store/User";
 import event from "./store/Event";
+import shop from "./store/Shop";
 
 
 // CRUD Models
@@ -22,5 +23,6 @@ export default new Vuex.Store({
     toast,
     user,
     event,
+    shop
   }
 });

@@ -3,6 +3,18 @@
     "name": "MerCOVid"
   },
   "pages": {
+    "myShops":{
+      "title": "Els meus comerços"
+    },
+    "account":{
+      "title": "El meu compte"
+    },
+    "favourites":{
+      "title": "Favorits"
+    },
+    "map":{
+      "title": "Mapa de comerços"
+    },
     "login": {
       "title": "Entra al teu compte",
       "register": "Crea un compte nou"

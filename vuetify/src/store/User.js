@@ -5,7 +5,6 @@ import {
   UserResource,
 } from "../plugins/resource";
 import { obj2slug } from "../plugins/utils";
-import md5 from "../plugins/md5";
 
 const userLoginUrl = API_SERVER + "/api/user/login";
 // const userRegisterUrl = API_SERVER + "/user/register/";
@@ -13,8 +12,9 @@ const userLoginUrl = API_SERVER + "/api/user/login";
 // const userResetPasswordSubmitUrl = API_SERVER + "/user/resetpasswordsubmit/";
 
 function createLink(obj){
+  obj.id = obj.userId
   obj.link = {name:"account", params:{slug:obj2slug(obj, 'full_name')}}
-  obj.form_name = `${obj.full_name} (${obj.username})`
+  obj.fullName = `${obj.firstName} ${obj.lastName}`
   return obj
 }
 

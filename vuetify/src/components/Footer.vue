@@ -1,54 +1,27 @@
 <template>
-  <v-card flat>
-    <v-card-text>
-      <h1 class="subheading">
-        {{ $t('app.name') }} |
-        <small>
-          <router-link :to="{name:'about'}">
-            {{ $t('navigation.links.about') }}
-          </router-link>
-        </small>
-      </h1>
-      <br>
-
-      <v-layout row wrap>
-        <!-- <v-flex md4 sm6 xs12>
-          <p>
-            <router-link :to="{name:'terms-of-service'}">
-              {{ $t('pages.legal.termsOfServiceTitle') }}
-            </router-link>
-            <br>
-            <router-link :to="{name:'legal-notice'}">
-              {{ $t('pages.legal.legalNoticeTitle') }}
-            </router-link>
-            <br>
-            <router-link :to="{name:'privacy-policy'}">
-              {{ $t('pages.legal.privacyPolicyTitle') }}
-            </router-link>
-            <br>
-            <router-link :to="{name:'cookie-policy'}">
-              {{ $t('pages.legal.cookiePolicyTitle') }}
-            </router-link>
-          </p>
-        </v-flex>
-        <v-spacer /> -->
-
-        <v-flex md4 sm6 xs12>
-          <p>
-            &copy; EnteBrain {{ currentYear }}
-          </p>
-        </v-flex>
-      </v-layout>
-    </v-card-text>
-  </v-card>
+  <v-footer app height="auto">
+    <v-layout>
+      <v-flex xs12>
+        <v-card flat>
+          <v-card-text class="py-2 px-3 grey--text">
+            <v-layout>
+              <v-flex shrink>{{ $t('app.name') }}</v-flex>
+              <v-spacer></v-spacer>
+              <v-flex shrink>&copy; EnteBrain {{ currentYear }}</v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </v-footer>
 </template>
 
 <script>
 export default {
-  data(){
-    return{
-      currentYear : new Date().getFullYear()
-    }
+  data() {
+    return {
+      currentYear: new Date().getFullYear()
+    };
   }
-}
+};
 </script>

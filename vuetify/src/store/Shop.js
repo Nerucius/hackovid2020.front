@@ -1,12 +1,14 @@
 import Vue from "../plugins/resource";
 import {
-  EventResource,
+  ShopResource,
 } from "../plugins/resource";
 import { obj2slug } from "../plugins/utils";
 
+let Resource = ShopResource;
+
 function createLink(obj){
-  obj.id = obj.eventId
-  obj.link = {name:"event", params:{slug:obj2slug(obj, 'name')}}
+  obj.id = obj.shopId
+  obj.link = {name:"shop", params:{slug:obj2slug(obj, 'name')}}
   return obj
 }
 
@@ -32,49 +34,6 @@ export default {
 
   actions: {
     load: async function (context, payload={}) {
-      let items = [
-        {
-          eventId: 1,
-          type:"NEW_SHOP",
-          what:{
-            _type: "Shop",
-            id: "1",
-            name: "Floristeria Jimenez",
-            image: {
-              url: "/img/static/shop1.jpg"
-            }
-          },
-          createdAt:"2020-04-10T15:29:26.930Z"
-        },
-        {
-          eventId: 2,
-          type:"NEW_SHOP",
-          what:{
-            _type: "Shop",
-            id: "1",
-            name: "Farmacia Gonzalez",
-            image: {
-              url: "/img/static/shop2.jpg"
-            }
-          },
-          createdAt:"2020-04-10T15:29:26.930Z"
-        },
-        {
-          eventId: 3,
-          type:"NEW_SHOP",
-          what:{
-            _type: "Shop",
-            id: "1",
-            name: "Carnisseria de la Esquina",
-            image: {
-              url: "/img/static/shop3.jpg"
-            }
-          },
-          createdAt:"2020-04-10T15:29:26.930Z"
-        },
-      ]
-      context.commit("ADD", items)
-    return;
       if (Array.isArray(payload)){
         // Ids provided, get detailed information on given pids
         let ids = payload
@@ -87,8 +46,8 @@ export default {
         let params = payload.params || {}
         let query = {...params}
 
-        let response = (await EventResource.get(query)).body
-        let items = response.results
+        let response = (await Resource.get(query)).body
+        let items = response.shops
 
         // Iteratively get all pages
         let next = response.next

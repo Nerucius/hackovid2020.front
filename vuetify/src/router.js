@@ -72,6 +72,16 @@ const router = new Router({
         // },
         // ======= ACCOUNT ROUTES =======
         {
+            path: "/account/shops/new",
+            name: "shop-create",
+            component: () => import( /* webpackChunkName: "account" */ "./views/account/ShopCreate.vue")
+        },
+        {
+            path: "/account/shops",
+            name: "account-shops",
+            component: () => import( /* webpackChunkName: "account" */ "./views/account/Shops.vue")
+        },
+        {
             path: "/account/:slug?",
             name: "account",
             component: () => import( /* webpackChunkName: "account" */ "./views/account/Account.vue")
