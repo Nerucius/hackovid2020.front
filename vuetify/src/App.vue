@@ -157,12 +157,12 @@ export default {
 
   async created() {
     // Block on the user status before allowing to show the app
-    // try{
     this.$store.dispatch("user/load");
-    await this.$store.dispatch("user/loadCurrent");
-    // }catch(error){
-    // this.$store.dispatch("toast/error", {message: 'Failed to login', error})
-    // }
+    try{
+      await this.$store.dispatch("user/loadCurrent");
+    }catch(error){
+      // this.$store.dispatch("toast/error", {message: 'Failed to login', error})
+    }
     this.loading = false;
   },
 
