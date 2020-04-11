@@ -7,7 +7,7 @@ export default {
 
   state: {
     preferences: {
-      lang: localStorage["lang"] || "en",
+      lang: localStorage["lang"] || process.env.VUE_APP_I18N_LOCALE,
       theme: localStorage["theme"] || "light",
     },
   },
