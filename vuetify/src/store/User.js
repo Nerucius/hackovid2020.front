@@ -77,17 +77,18 @@ export default {
     },
 
     loadCurrent: async function (context) {
-      // TODO: Workaround for broken api
-      let userEmailHash = Cookies.get('user_hash')
-      let response = await UserResource.get()
-      let users = response.data.userDetails
+      let currentUserId = Cookies.get('user_id')
+      if (currentUserId == null) return;
 
-      for(let user of users){
-        let hash = user.imageUrl.split('/').splice(-1)
-        if(hash == userEmailHash){
-          context.commit("SET_CURRENT", user);
-        }
-      }
+      let response = await UserResource.get({id:currentUserId})
+      console.log(response);
+      // let users = response.data.userDetails
+
+      // for(let user of users){
+      //   if(user.userId == currentUserId){
+      //     context.commit("SET_CURRENT", user);
+      //   }
+      // }
 
       // try{
         // let id = Cookies.get('user_id')
@@ -108,45 +109,34 @@ export default {
         let authentication = (await Vue.http.post(userLoginUrl, credentials))
         let user = authentication.body
 
-        user.mail = user.mail.replace(/\+.*@/, '@')
-        let userHash = md5(user.mail);
+        console.log("LOGED IN AS");
+        console.log(user);
 
-        Cookies.set('user_hash', userHash, { expires: 365 })
         Cookies.set('authorization', user.token, { expires: 365 })
-
+        Cookies.set('user_id', user.userId, { expires: 365 })
         context.commit("SET_CURRENT", user)
+
         // Not needed since login returns entire user
         // await context.dispatch("loadCurrent");
     },
 
-    // resetPassword: async function (context, credentials) {
-    //     let response = await Vue.http.post(
-    //       userResetPasswordRequestUrl, credentials, {emulateJSON: true}
-    //     )
-    // },
-
-    // resetPasswordSubmit: async function (context, credentials) {
-    //     let response = await Vue.http.post(
-    //       userResetPasswordSubmitUrl, credentials, {emulateJSON: true}
-    //     )
-    // },
-
     logout: async function (context) {
       // await Vue.http.get(userLogoutUrl);
       Cookies.remove('authorization')
-      Cookies.remove('user_hash')
+      Cookies.remove('user_id')
       context.commit("SET_CURRENT", null)
     },
 
-    updateCurrent: async function(context, user){
-      let changed = (await UserResource.update({id:user.id}, user)).body
-      context.commit("SET_CURRENT", changed)
-      return changed
-    },
+    // updateCurrent: async function(context, user){
+    //   let changed = (await UserResource.update({id:user.id}, user)).body
+    //   context.commit("SET_CURRENT", changed)
+    //   return changed
+    // },
 
     register: async function(context, newUser){
       // await Vue.http.get(userRegisterUrl, {params: {...newUser}});
       let response = await Vue.http.post(userRegisterUrl, newUser, { emulateJSON: true })
+      context.commit("SET_CURRENT", response.body)
       return response.body
     }
   },
