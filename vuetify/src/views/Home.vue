@@ -1,6 +1,6 @@
 <template>
-  <v-layout row wrap align-content-start>
-    <v-flex xs12>
+  <v-layout mt-5 row wrap align-content-start>
+    <v-flex mt-2 xs12>
       <Feed />
     </v-flex>
   </v-layout>

@@ -1,6 +1,6 @@
 <template>
   <v-layout row justify-center>
-    <v-flex xs12 md10 lg8 xl6>
+    <v-flex mt-3 xs12 md10 lg8 xl6>
       <v-card flat>
         <!-- <v-toolbar dense flat dark color="primary">
           <v-toolbar-title>{{ $t('forms.titles.login') }}</v-toolbar-title>
@@ -8,20 +8,26 @@
           <v-toolbar-items>
             <LanguageSelector />
           </v-toolbar-items>
-        </v-toolbar> -->
+        </v-toolbar>-->
 
         <v-card-title>
-          <h2>Log into your account</h2>
+          <v-layout>
+            <v-flex grow>
+              <h2>{{ $t('pages.login.title') }}</h2>
+            </v-flex>
+            <v-flex shrink>
+              <LanguageSelector />
+            </v-flex>
+          </v-layout>
         </v-card-title>
         <v-card-text>
-
           <!-- Logo -->
           <v-layout row wrap justify-space-around align-center px-2>
             <v-flex xs12 pa-0 />
 
             <!-- <v-flex md3 class="hidden-sm-and-down">
               <v-img src="/img/branding/inspires.png" />
-            </v-flex> -->
+            </v-flex>-->
 
             <!-- Form to login with credentials -->
             <v-flex v-if="!resetPassword" sm12 md8>
@@ -30,9 +36,7 @@
                 dismissible
                 type="error"
                 class="my-3"
-              >
-                {{ $t("forms.errors.invalidCredentials") }}
-              </v-alert>
+              >{{ $t("forms.errors.invalidCredentials") }}</v-alert>
 
               <v-form
                 ref="form"
@@ -60,7 +64,7 @@
                 <a href="#forgot-password" @click="resetPassword = true">
                   {{ $t("pages.login.forgotPassword") }}
                 </a>
-              </div> -->
+              </div>-->
             </v-flex>
 
             <!-- Form to reset password -->
@@ -69,9 +73,7 @@
                 :value="resetPasswordSubmitted"
                 type="info"
                 class="my-3"
-              >
-                {{ $t("forms.toasts.resetPasswordSubmitted") }}
-              </v-alert>
+              >{{ $t("forms.toasts.resetPasswordSubmitted") }}</v-alert>
 
               <v-form
                 ref="formResetPassword"
@@ -88,9 +90,10 @@
               </v-form>
 
               <div class="text-xs-right">
-                <a href="#" @click="resetPassword = false">
-                  {{ $t("pages.resetPassword.goBackToLogin") }}
-                </a>
+                <a
+                  href="#"
+                  @click="resetPassword = false"
+                >{{ $t("pages.resetPassword.goBackToLogin") }}</a>
               </div>
             </v-flex>
           </v-layout>
@@ -98,24 +101,32 @@
 
         <v-card-actions class="mt-2 pb-3 px-3 text-xs-center">
           <v-flex v-if="!resetPassword" shrink>
-            <v-btn :to="{name:'register'}" dark flat outline color="primary">
-              {{ $t('pages.login.registerCTA') }}
-            </v-btn>
+            <v-btn
+              :to="{name:'register'}"
+              dark
+              flat
+              outline
+              color="primary"
+            >{{ $t('pages.login.register') }}</v-btn>
           </v-flex>
           <v-spacer />
 
           <!-- Login with credentials action -->
           <v-flex v-if="!resetPassword" shrink>
-            <v-btn :disabled="!valid" color="primary" @click="submitLogin()">
-              {{ $t("actions.login") }}
-            </v-btn>
+            <v-btn
+              :disabled="!valid"
+              color="primary"
+              @click="submitLogin()"
+            >{{ $t("actions.login") }}</v-btn>
           </v-flex>
 
           <!-- Reset password action -->
           <v-flex v-else shrink>
-            <v-btn :disabled="!validResetPassword || resetPasswordSubmitted" color="primary" @click="submitResetPassword()">
-              {{ $t("pages.resetPassword.resetPassword") }}
-            </v-btn>
+            <v-btn
+              :disabled="!validResetPassword || resetPasswordSubmitted"
+              color="primary"
+              @click="submitResetPassword()"
+            >{{ $t("pages.resetPassword.resetPassword") }}</v-btn>
           </v-flex>
         </v-card-actions>
       </v-card>
@@ -127,10 +138,10 @@
 import LanguageSelector from "@/components/toolbar/LanguageSelector";
 
 export default {
-  metaInfo(){
+  metaInfo() {
     return {
       title: this.$t("forms.titles.login")
-    }
+    };
   },
 
   components: {
@@ -148,20 +159,20 @@ export default {
         mail: "",
         password: ""
       },
-      rules: [v => !!v || this.$t("forms.rules.requiredField")],
+      rules: [v => !!v || this.$t("forms.rules.requiredField")]
     };
   },
 
   computed: {
     isLoggedIn() {
       return this.$store.getters["user/isLoggedIn"];
-    },
+    }
   },
 
-  mounted(){
+  mounted() {
     // Avoid showing this page if the user is logged in
     setTimeout(() => {
-      if (this.isLoggedIn){
+      if (this.isLoggedIn) {
         this.redirectToPage();
       }
     }, 500);
@@ -177,18 +188,15 @@ export default {
 
     async submitResetPassword() {
       if (this.$refs.formResetPassword.validate()) {
-        try{
-          await this.$store.dispatch("user/resetPassword", this.credentials)
-          this.resetPasswordSubmitted = true
-
-        }catch(error){
+        try {
+          await this.$store.dispatch("user/resetPassword", this.credentials);
+          this.resetPasswordSubmitted = true;
+        } catch (error) {
           this.$store.dispatch("toast/error", {
-            message: this.$t('pages.login.resetPasswordError'),
+            message: this.$t("pages.login.resetPasswordError"),
             error
-          })
+          });
         }
-
-
       }
     },
 
@@ -196,23 +204,25 @@ export default {
       // Send the credentials to be logged in and redirect to the
       // next page if successful
 
-      this.$store.dispatch("user/login", this.credentials)
-      .then(()=>{
-        this.redirectToPage();
-      })
-      .catch(err => {
-        // this.$refs.form.reset();
-        this.credentials.password = ''
-        this.failedLogin = true;
-      });
+      this.$store
+        .dispatch("user/login", this.credentials)
+        .then(() => {
+          this.redirectToPage();
+        })
+        .catch(error => {
+          console.log(error)
+          // this.$refs.form.reset();
+          this.credentials.password = "";
+          this.failedLogin = true;
+        });
     },
 
-    redirectToPage(){
-        // Redirect to requested route before force login
-        // or homepage if landed on login
-        let path = this.$route.query.redirect || "/account";
-        path = path == "/login" ? "/" : path
-        this.$router.push({ path });
+    redirectToPage() {
+      // Redirect to requested route before force login
+      // or homepage if landed on login
+      let path = this.$route.query.redirect || "/";
+      path = path == "/login" ? "/" : path;
+      this.$router.push({ path });
     }
   }
 };

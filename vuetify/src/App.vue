@@ -19,10 +19,6 @@
 
   #toast-container {padding-top: 10px}
   .v-snack { padding-top: 10px; }
-  .v-content{
-    /* Need to adjust padding due to extended toolbar */
-    padding-top: 128px !important;
-  }
 </style>
 
 <style scoped>
@@ -164,8 +160,11 @@ export default {
 
   async created() {
     // Block on the user status before allowing to show the app
-    // await this.$store.dispatch("user/load");
-
+    // try{
+     this.$store.dispatch("user/loadCurrent");
+    // }catch(error){
+      // this.$store.dispatch("toast/error", {message: 'Failed to login', error})
+    // }
     this.loading = false;
   },
 

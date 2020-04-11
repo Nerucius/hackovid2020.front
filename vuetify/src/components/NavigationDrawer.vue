@@ -1,134 +1,98 @@
 <style scoped>
-  .subheading{
-    line-height: 120%
-  }
+.subheading {
+  line-height: 120%;
+}
 
-  .sidebar-header{
-    background-image: url("http://www.outdoorphotographer.com/images/gallery/full/871/107871.jpg");
-    background-size: cover;
-    color:snow;
+.sidebar-header{
+    background: repeating-linear-gradient(
+      -45deg,
+      #673ec5 ,
+      #673ec5  40px,
+      #512da8  40px,
+      #512da8  80px
+    );
   }
-  .sidebar-header small{
-    color:lightgray
-  }
+.sidebar-header small {
+  color: lightgray;
+}
 
-  .v-list > div{
-    margin-bottom: 4px
-  }
+.v-list > div {
+  margin-bottom: 4px;
+}
 </style>
 
 
 <template>
   <v-navigation-drawer v-model="showDrawer" app temporary style="z-index:1000">
     <v-layout column justify-start fill-height>
-      <v-flex class="pa-2 pt-3 px-4 sidebar-header" shrink>
-        <v-flex>
-          <v-avatar size="80">
-            <img
-              :src="currentUser.avatar_url"
-              alt="avatar"
-            >
-          </v-avatar>
-        </v-flex>
-        <v-flex class="mt-3 subheading">
-          <v-layout>
-            <v-flex>
-              {{ currentUser.first_name }} {{ currentUser.last_name }} <br>
-              <small>{{ currentUser.email }}</small>
+
+      <!-- Avatar and Name -->
+      <v-flex shrink>
+        <v-sheet class="sidebar-header">
+          <v-layout pt-4 px-3 pb-3 column>
+            <v-flex shrink>
+                <v-avatar size="80">
+                  <img :src="currentUser.imageUrl" alt="avatar" />
+                </v-avatar>
             </v-flex>
 
-            <!-- Disabled account info toggle -->
-            <!-- <v-flex shrink class="py-1">
-              <v-icon dark @click="toggleAccountMenu()">
-                {{ showAccountMenu ? 'keyboard_arrow_up' : 'keyboard_arrow_down' }}
-              </v-icon>
-            </v-flex> -->
+            <v-flex mt-3 class="subheading white--text">
+                {{ currentUser.firstName }} {{ currentUser.lastName }}
+                <br />
+                <small>{{ currentUser.mail }}</small>
+            </v-flex>
           </v-layout>
-        </v-flex>
+        </v-sheet>
       </v-flex>
 
-      <!-- Account Menu DISABLED -->
-      <!-- <v-flex v-if="showAccountMenu" shrink>
-        <v-list>
-          <v-list-tile :to="{name:'account'}" exact>
-            <v-list-tile-action>
-              <v-icon>person</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-content>
-              <v-list-tile-title>My Account</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-      </v-flex> -->
-
-      <!-- User Menu -->
-      <v-flex v-if="!showAccountMenu" shrink>
-        <v-expansion-panel class="elevation-0" focusable>
-          <v-expansion-panel-content>
-            <!-- Trigger Slot -->
-            <template v-slot:header>
-              <v-layout py-2 align-center="">
-                <v-flex pr-3 shrink>
-                  <v-icon size="28" style="flex-shrink:1">
-                    person
-                  </v-icon>
-                </v-flex>
-                <v-flex class="subheading">
-                  {{ $t("toolbar.myProjects") }}
-                </v-flex>
-              </v-layout>
-            </template>
-
-            <v-list>
-              <v-list-tile to="/projects/1">
-                <v-list-tile-title>Project Alpha</v-list-tile-title>
-              </v-list-tile>
-              <v-list-tile to="/projects/2">
-                <v-list-tile-title>Project Beta</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
+      <v-list>
+        <!-- My account -->
+        <v-list-tile to="/account">
+          <v-list-tile-action>
+            <v-icon color="primary darken-2">person</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>El meu compte</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
         <v-divider />
-
-        <v-expansion-panel class="elevation-0" focusable>
-          <v-expansion-panel-content>
-            <!-- Trigger Slot -->
-            <template v-slot:header>
-              <v-layout py-2 align-center="">
-                <v-flex pr-3 shrink>
-                  <v-icon size="28" style="flex-shrink:1">
-                    person
-                  </v-icon>
-                </v-flex>
-                <v-flex class="subheading">
-                  {{ $t("toolbar.myStructures") }}
-                </v-flex>
-              </v-layout>
-            </template>
-
-            <v-list>
-              <v-list-tile>
-                <v-list-tile-title>Project Alpha</v-list-tile-title>
-              </v-list-tile>
-              <v-list-tile>
-                <v-list-tile-title>Project Beta</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-expansion-panel-content>
-        </v-expansion-panel>
-
-
-      </v-flex>
-
+        <!-- Map -->
+        <v-list-tile to="/map">
+          <v-list-tile-action>
+            <v-icon color="green darken-2">map</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Mapa</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider />
+        <!-- Favourites -->
+        <v-list-tile to="/favourites">
+          <v-list-tile-action>
+            <v-icon color="orange darken-2">star</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Favorits</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider />
+        <v-list-tile to="/account/shops">
+          <v-list-tile-action>
+            <v-icon color="red darken-2">store</v-icon>
+          </v-list-tile-action>
+          <v-list-tile-content>
+            <v-list-tile-title>Les meves tendes</v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <v-divider />
+      </v-list>
 
       <v-spacer />
 
       <!-- <v-divider />
       <v-flex shrink>
         <ThemeSelector />
-      </v-flex> -->
+      </v-flex>-->
     </v-layout>
   </v-navigation-drawer>
 </template>
@@ -146,7 +110,7 @@ export default {
   data() {
     return {
       showDrawer: null,
-      showAccountMenu: false,
+      showAccountMenu: false
     };
   },
 
@@ -162,7 +126,7 @@ export default {
     },
     toggleAccountMenu() {
       this.showAccountMenu = !this.showAccountMenu;
-    },
+    }
   }
 };
 </script>

@@ -15,32 +15,25 @@
 
   <v-menu v-else offset-y>
     <v-btn slot="activator" flat>
-      {{ user.first_name }}
+      <v-avatar size="36">
+        <img
+          :src="user.imageUrl"
+          alt="John"
+        >
+      </v-avatar>
+      <!-- {{ user.firstName }}
       <v-icon right>
         expand_more
-      </v-icon>
+      </v-icon> -->
     </v-btn>
+
     <v-list>
-      <v-list-tile v-if="user.is_administrator" :to="{name:'administration'}">
-        <v-list-tile-title>
-          {{ $t('toolbar.administration') }}
-        </v-list-tile-title>
-      </v-list-tile>
-
-      <v-list-tile :to="{name:'account'}">
-        <v-list-tile-title>
-          {{ $t('toolbar.myAccount') }}
-        </v-list-tile-title>
-      </v-list-tile>
-
-      <v-divider />
-
       <v-list-tile @click="logout()">
         <v-list-tile-title>
-          Log out
-          <v-icon right>
+          <v-icon left>
             exit_to_app
           </v-icon>
+          Log out
         </v-list-tile-title>
       </v-list-tile>
     </v-list>
@@ -65,7 +58,7 @@ export default {
     async logout() {
       await this.$store.dispatch("user/logout");
       this.$store.dispatch("toast/info", this.$t('forms.toasts.loggedOut'));
-      this.$router.push({ name: 'home'})
+      try{this.$router.push({ name: 'home'})} catch(error){}
     }
   }
 };

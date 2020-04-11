@@ -6,25 +6,23 @@ Vue.use(VueResource);
 
 export const API_SERVER = process.env.VUE_APP_API_SERVER
 
-// DEPRECATED
-// Enable cookie credentials for cross-domain
-// Vue.http.options.credentials = true;
+// Disable cookie credentials for cross-domain
+// Vue.http.options.credentials = false;
 
 // Setup VueResource to work with DRF Token Auth
 Vue.http.interceptors.push(function(request) {
   let token = Cookies.get('authorization')
   if(token){
-    request.headers.set('Authorization', `Token ${token}`);
+    request.headers.set('Authorization', `Bearer ${token}`);
   }
 });
 
 // Add patch method to API resources
 const PATCH =  {patch: {method: "PATCH"}, update: {method: "PATCH"}}
 
-export const UserResource                 = Vue.resource(API_SERVER + "/api/user{/id}/", {}, PATCH);
-export const UserLoginResource            = Vue.resource(API_SERVER + "/api/user/login");
+export const UserResource                 = Vue.resource(API_SERVER + "/api/user{/id}", {}, PATCH);
+export const EventResource                 = Vue.resource(API_SERVER + "/api/event{/id}", {}, PATCH);
 
-export const EventResource                 = Vue.resource(API_SERVER + "/api/event{/id}/", {}, PATCH);
 // export const ProjectResource              = Vue.resource(API_SERVER + "/v1/projects{/id}/", {}, PATCH);
 // export const ProjectPhaseResource         = Vue.resource(API_SERVER + "/v1/projectphases{/id}/", {}, PATCH);
 // export const ProjectAtPhaseResource       = Vue.resource(API_SERVER + "/v1/projectatphases{/id}/", {}, PATCH);

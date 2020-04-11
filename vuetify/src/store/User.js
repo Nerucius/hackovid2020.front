@@ -3,14 +3,14 @@ import Cookies from "js-cookie";
 import {
   API_SERVER,
   UserResource,
-  UserLoginResource,
 } from "../plugins/resource";
 import { obj2slug } from "../plugins/utils";
+import md5 from "../plugins/md5";
 
-const userLoginUrl = API_SERVER + "/api-token-auth/";
-const userRegisterUrl = API_SERVER + "/user/register/";
-const userResetPasswordRequestUrl = API_SERVER + "/user/resetpassword/";
-const userResetPasswordSubmitUrl = API_SERVER + "/user/resetpasswordsubmit/";
+const userLoginUrl = API_SERVER + "/api/user/login";
+// const userRegisterUrl = API_SERVER + "/user/register/";
+// const userResetPasswordRequestUrl = API_SERVER + "/user/resetpassword/";
+// const userResetPasswordSubmitUrl = API_SERVER + "/user/resetpasswordsubmit/";
 
 function createLink(obj){
   obj.link = {name:"account", params:{slug:obj2slug(obj, 'full_name')}}
@@ -25,13 +25,6 @@ export default {
     current: null,
     items: {},
     itemsDetail: {},
-
-    genders: [
-      {value:"", name:"misc.notSpecified"},
-      {value:"MALE", name:"models.userGender.male"},
-      {value:"FEMALE", name:"models.userGender.female"},
-      {value:"OTHER", name:"models.userGender.other"},
-    ],
 
   },
 
@@ -63,7 +56,7 @@ export default {
         context.commit("ADD_DETAIL", items)
 
       }else{
-        await context.dispatch("loadCurrent")
+        // await context.dispatch("loadCurrent")
         // No ids provided, just get list of all
         let params = payload.params || {}
         let query = {...params}
@@ -84,45 +77,65 @@ export default {
     },
 
     loadCurrent: async function (context) {
-      try{
-        let response = await CurrentUserResource.get()
-        let user = response.body.results[0]
-        user.is_administrator = user.groups.indexOf(2) >= 0;
-        context.commit("SET_CURRENT", user);
-        context.commit("ADD_DETAIL", [user]);
-      }catch(err){
-        // no auth
-        console.log("Authentication not found. User not logged in")
-        Cookies.remove('authorization')
-        context.commit("SET_CURRENT", null)
+      // TODO: Workaround for broken api
+      let userEmailHash = Cookies.get('user_hash')
+      let response = await UserResource.get()
+      let users = response.data.userDetails
+
+      for(let user of users){
+        let hash = user.imageUrl.split('/').splice(-1)
+        if(hash == userEmailHash){
+          context.commit("SET_CURRENT", user);
+        }
       }
+
+      // try{
+        // let id = Cookies.get('user_id')
+        // let response = await UserResource.get({id})
+        // let user = response.body
+        // user.is_administrator = user.groups.indexOf(2) >= 0;
+        // context.commit("SET_CURRENT", user);
+        // context.commit("ADD_DETAIL", [user]);
+      // catch(err){
+      //   // no auth
+      //   console.log("Authentication not found. User not logged in")
+      //   Cookies.remove('authorization')
+      //   context.commit("SET_CURRENT", null)
+      // }
     },
 
     login: async function (context, credentials) {
-        // let authentication = (await Vue.http.post(userLoginUrl, credentials))
-        // let token = authentication.body.token
-        // Cookies.set('authorization', token)
+        let authentication = (await Vue.http.post(userLoginUrl, credentials))
+        let user = authentication.body
+
+        user.mail = user.mail.replace(/\+.*@/, '@')
+        let userHash = md5(user.mail);
+
+        Cookies.set('user_hash', userHash, { expires: 365 })
+        Cookies.set('authorization', user.token, { expires: 365 })
+
+        context.commit("SET_CURRENT", user)
+        // Not needed since login returns entire user
         // await context.dispatch("loadCurrent");
-        let response = (await UserLoginResource.get(credentials))
-        console.log(response)
     },
 
-    resetPassword: async function (context, credentials) {
-        let response = await Vue.http.post(
-          userResetPasswordRequestUrl, credentials, {emulateJSON: true}
-        )
-    },
+    // resetPassword: async function (context, credentials) {
+    //     let response = await Vue.http.post(
+    //       userResetPasswordRequestUrl, credentials, {emulateJSON: true}
+    //     )
+    // },
 
-    resetPasswordSubmit: async function (context, credentials) {
-        let response = await Vue.http.post(
-          userResetPasswordSubmitUrl, credentials, {emulateJSON: true}
-        )
-    },
+    // resetPasswordSubmit: async function (context, credentials) {
+    //     let response = await Vue.http.post(
+    //       userResetPasswordSubmitUrl, credentials, {emulateJSON: true}
+    //     )
+    // },
 
     logout: async function (context) {
       // await Vue.http.get(userLogoutUrl);
       Cookies.remove('authorization')
-      await context.dispatch("loadCurrent");
+      Cookies.remove('user_hash')
+      context.commit("SET_CURRENT", null)
     },
 
     updateCurrent: async function(context, user){
@@ -161,7 +174,7 @@ export default {
     },
 
     isLoggedIn: state => {
-      return state.current != null && state.current.id > 0;
+      return state.current != null //&& state.current.id > 0;
     },
 
     educationLevels: state => state.educationLevels,

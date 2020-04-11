@@ -12,9 +12,8 @@
 }
 </style>
 
-
 <template>
-  <v-toolbar app extended scroll-off-screen dense dark color="primary" style="z-index:999">
+  <v-toolbar app :extended="showExtension" scroll-off-screen dense dark color="primary" style="z-index:999">
     <v-toolbar-side-icon v-if="showToggleDrawer" @click="$emit('toggleDrawer')" />
     <v-toolbar-title class="headline text-uppercase">
       <router-link :to="{name:'home'}" active-class="router-link">
@@ -71,7 +70,9 @@ export default {
     },
 
     showExtension(){
-      return this.$route.name == 'home'
+      let show = this.$route.name == 'home';
+      // document.getElementsByTagName('main').classList.add('extended')
+      return show
     },
 
     _links(){

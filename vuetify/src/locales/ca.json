@@ -1,3 +1,136 @@
 {
+  "app": {
+    "name": "MerCOVid"
+  },
+  "pages": {
+    "login": {
+      "title": "Entra al teu compte",
+      "register": "Crea un compte nou"
+    },
+    "register": {
+    },
+    "home":{
+      "title": "Feed d'events"
+    }
+  },
+  "actions": {
+    "add": "Afegeix",
+    "accept": "Accept",
+    "submit": "Enviar",
+    "approve": "Aprovar",
+    "validate": "Validar",
+    "create": "Crear",
+    "read": "Llegir",
+    "delete": "Eliminar",
+    "update": "Actualitzar",
+    "updateResponse": "Actualitzar la resposta",
+    "withdraw": "Retirar",
+    "login": "Login",
+    "logout": "Sortir",
+    "register": "Registrar-se",
+    "save": "Desa",
+    "close": "Tanca",
+    "cancel": "Cancel·la",
+    "more": "Més",
+    "next": "Següent",
+    "manage": "Manage",
+    "clearFilter": "Clear filter",
+    "moreInformation": "Més Informació",
+    "manageName": "Manage this {name}",
+    "viewPublicPage": "View public page",
+    "exportAllData": "Export all data"
+  },
+  "navigation": {
+    "links": {
+      "home": "Inici",
+      "about": "Al voltant de "
+    }
+  },
 
+  "forms": {
+    "titles": {
+      "login": "Iniciar sessió"
+    },
+    "rules": {
+      "requiredField": "Aquest camp és obligatori",
+      "passwordField": "La contrasenya introduïda es massa comuna ",
+      "passwordMatch": "Les dues contrasenyes no coincideixen",
+      "maximunLength": "Ha de tenir com a màxim {length} caràcters",
+      "minimunLength": "Ha de tenir com a mínim {length} caràcters",
+      "namedRequiredField": "{name} és un camp obligatori",
+      "mustBeURL": "El valor no es una URL valida",
+      "mustBeCountry": "El valor no es un Pais"
+    },
+    "errors": {
+      "invalidCredentials": "Credencials incorrectes, si us plau, verifica el teu nom d'usuari i contrasenya"
+    },
+    "toasts": {
+      "loggedOut": "Has sortit de la sessió",
+      "saveSuccess": "Desat correctament!",
+      "saveFailure": "Error al desar, torna-ho a provar més endavant"
+    },
+    "fields": {
+      "name": "Nom",
+      "firstName": "Primer cognom",
+      "lastName": "Segon cognom",
+      "email": "Correu electrònic",
+      "education": "Education Level",
+      "institution": "Institution",
+      "genderIdentity": "Gender Identity",
+      "summary": "Resum",
+      "description": "Descripció",
+      "participants": "Participants",
+      "managers": "Gestors",
+      "projectName": "Nom del projecte",
+      "projectCountry": "Project country of action",
+      "projectImageURL": "URL de la imatge del Projecte",
+      "projectSummary": "Resum del Projecte",
+      "projectAcronym": "Acrònim del Projecte",
+      "socialNetwork": "Social Network",
+      "contactEmail": "Correu electrònic de contacte",
+      "projectAdministrators": "Administradors del Projecte",
+      "contactWebsite": "Pàgina web externa",
+      "postalAddress": "Adreça postal",
+      "username": "Nom d'usuari",
+      "usernameOrEmail": "Nom d'usuari o correu electrònic",
+      "password": "Contrasenya",
+      "passwordRepeat": "Repeteix la teva contrasenya",
+      "title": "Títol",
+      "role": "Rol",
+      "invitationCode": "Codi d'invitació",
+      "projectPhase": "Fase del Projecte",
+      "projectType": "Tipus de Projecte",
+      "knowledgeArea": "Àrea de Coneixement",
+      "knowledgeAreas": "Àrees de Coneixement"
+    },
+    "labels": {
+      "searchUsers": "Cerca usuaris"
+    },
+    "hints": {
+      "email": "Email a fer servir per login",
+      "projectImageURL": "URL d'una imatge que vulguis mostrar en la teva pàgina del projecte",
+      "contactEmail": "On t'haurien de contactar les persones que tinguessin alguna pregunta sobre el projecte?",
+      "contactWebsite": "URL a una pàgina web externa on altres persones poden veure més sobre el teu projecte",
+      "projectType": "Com està estructurat el teu equip?",
+      "projectName": "Escull un nom que caracteritzi el teu projecte. Suggerim que siguin menys de 50 caràcters. ",
+      "projectSummary": "Presenta un breu resum del teu projecte i els seus objectius. Suggerim que l'explicació tingui menys de 200 caràcters. ",
+      "projectAdministrators": "Afegeix aquí a totes les persones que tindran accés a l'edició del projecte. Els administradors de projectes no poden transmetre la propietat a altres persones. ",
+      "projectAcronym": "Escull un Acrònim del Projecte",
+      "knowledgeArea": "Àrea de Coneixement de la UNESCO que millor defineix el teu projecte",
+      "summary": "Descripció extensa del projecte. Sense límit de caràcters.",
+      "description": "Descripció extensa del projecte. Sense límit de caràcters.",
+      "password": "La teva contrasenya ha de tenir al menys 8 caràcters, no ha de ser comuna i no ha de contenir el teu nom d'usuari"
+    }
+  },
+
+  "errors": {
+    "404": {
+      "title": "Oops! No s'ha trobat aquesta pàgina",
+      "text": "La pàgina a'{route}' no existeix. Estàs segur que ho has escrit correctament? "
+    }
+  },
+  "misc": {
+    "timeAgo": "fa {time}",
+    "notSpecified": "Not specified"
+  }
 }
