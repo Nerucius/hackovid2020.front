@@ -1,6 +1,13 @@
-# Platform Web Application
+# MerCoVid - Social Network for Local Shops
 
-`TODO: adapt to final specs`
+MerCoVid is a social network for small and medium local shops that want to promote
+themselves in a digital space open to everyone. Powered by Web technologies that open
+the access to everyone.
+
+![Image 1](https://cloud.carrotpiracy.com/index.php/s/F3B78cMnn9iSDLn/download)
+
+![Image 2](https://cloud.carrotpiracy.com/index.php/s/D7Wn7LoFmzjPkq2/download)
+
 
 ## Architecture Overview
 
@@ -48,8 +55,5 @@ HTTPS Certificates can be obtained throuh letsencrypt `certbot-auto` software.
 **Setup steps**
 1. Open `vuetify` folder in VSCode.
 1. Copy `.env.sample` to `.env`
-1. Edit values in `.env` file to point to a remote server
-    that is running the backend.
-1. Run `npm run serve` to start the local testing environment in order
-    to start development of the frontend. HMR is setup so there is no
-    need to refresh the browser on code changes.
+1. Edit values in `.env` file to point to a server that is running the backend service.
+1. Run `npm run serve` to start the local testing environment in order to start development of the frontend. HMR is enabled so there is no need to refresh the browser on code changes.
