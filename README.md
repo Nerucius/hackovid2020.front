@@ -4,9 +4,7 @@ MerCoVid is a social network for small and medium local shops that want to promo
 themselves in a digital space open to everyone. Powered by Web technologies that open
 the access to everyone.
 
-![Image 1](https://cloud.carrotpiracy.com/index.php/s/F3B78cMnn9iSDLn/download)
-
-![Image 2](https://cloud.carrotpiracy.com/index.php/s/D7Wn7LoFmzjPkq2/download)
+![Image](https://cloud.carrotpiracy.com/index.php/s/HQrK4CRWkqpwWYw/download)
 
 
 ## Architecture Overview
