@@ -5,9 +5,13 @@
         <v-card flat>
           <v-card-text class="py-2 px-3 grey--text">
             <v-layout>
-              <v-flex shrink>{{ $t('app.name') }}</v-flex>
-              <v-spacer></v-spacer>
-              <v-flex shrink>&copy; EnteBrain {{ currentYear }}</v-flex>
+              <v-flex shrink>
+                {{ $t('app.name') }}
+              </v-flex>
+              <v-spacer />
+              <v-flex shrink>
+                &copy; EnteBrain {{ currentYear }}
+              </v-flex>
             </v-layout>
           </v-card-text>
         </v-card>

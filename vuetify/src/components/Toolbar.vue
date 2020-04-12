@@ -18,7 +18,7 @@
     <v-toolbar-title class="headline text-uppercase">
       <router-link :to="{name:'home'}" active-class="router-link">
         <span style="text-transform:none">
-          <small>{{ $t('app.name')}}</small>
+          <small>{{ $t('app.name') }}</small>
         </span>
       </router-link>
     </v-toolbar-title>
@@ -26,7 +26,7 @@
     <v-spacer />
 
     <v-toolbar-items>
-        <LoginLogoutButton />
+      <LoginLogoutButton />
     </v-toolbar-items>
 
     <template v-if="showExtension" v-slot:extension>
@@ -34,7 +34,6 @@
         <FeedNavigation />
       </div>
     </template>
-
   </v-toolbar>
 </template>
 

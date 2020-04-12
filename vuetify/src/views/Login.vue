@@ -36,7 +36,9 @@
                 dismissible
                 type="error"
                 class="my-3"
-              >{{ $t("forms.errors.invalidCredentials") }}</v-alert>
+              >
+                {{ $t("forms.errors.invalidCredentials") }}
+              </v-alert>
 
               <v-form
                 ref="form"
@@ -73,7 +75,9 @@
                 :value="resetPasswordSubmitted"
                 type="info"
                 class="my-3"
-              >{{ $t("forms.toasts.resetPasswordSubmitted") }}</v-alert>
+              >
+                {{ $t("forms.toasts.resetPasswordSubmitted") }}
+              </v-alert>
 
               <v-form
                 ref="formResetPassword"
@@ -107,7 +111,9 @@
               flat
               outline
               color="primary"
-            >{{ $t('pages.login.register') }}</v-btn>
+            >
+              {{ $t('pages.login.register') }}
+            </v-btn>
           </v-flex>
           <v-spacer />
 
@@ -117,7 +123,9 @@
               :disabled="!valid"
               color="primary"
               @click="submitLogin()"
-            >{{ $t("actions.login") }}</v-btn>
+            >
+              {{ $t("actions.login") }}
+            </v-btn>
           </v-flex>
 
           <!-- Reset password action -->
@@ -126,7 +134,9 @@
               :disabled="!validResetPassword || resetPasswordSubmitted"
               color="primary"
               @click="submitResetPassword()"
-            >{{ $t("pages.resetPassword.resetPassword") }}</v-btn>
+            >
+              {{ $t("pages.resetPassword.resetPassword") }}
+            </v-btn>
           </v-flex>
         </v-card-actions>
       </v-card>

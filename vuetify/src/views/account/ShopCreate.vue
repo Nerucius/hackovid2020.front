@@ -21,18 +21,20 @@
             />
             <br>
             <div id="shopMap" style="width: 100%; height: 200px" />
-            <small>{{shopMapLabel}}</small>
+            <small>{{ shopMapLabel }}</small>
             <v-text-field
               v-model="shop.streetName"
               :rules="[rules.required]"
-              @change="searchStreet"
               :label="$t('forms.fields.streetName')"
+              @change="searchStreet"
             />
           </v-card-text>
           <v-card-actions>
             <v-spacer />
             <v-flex shrink>
-              <v-btn type="submit" depressed color="success">Registrar</v-btn>
+              <v-btn type="submit" depressed color="success">
+                Registrar
+              </v-btn>
             </v-flex>
           </v-card-actions>
         </v-card>

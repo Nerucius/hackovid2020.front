@@ -25,7 +25,9 @@
         <v-card-actions>
           <v-spacer />
           <v-flex shrink>
-            <v-btn :to="{name: 'shop-create'}" depressed color="primary">Registrar una tenda</v-btn>
+            <v-btn :to="{name: 'shop-create'}" depressed color="primary">
+              Registrar una tenda
+            </v-btn>
           </v-flex>
         </v-card-actions>
       </v-card>

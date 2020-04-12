@@ -73,7 +73,9 @@ td {
               color="primary"
               :disabled="!valid"
               @click="submitRegister()"
-            >{{ $t("actions.register") }}</v-btn>
+            >
+              {{ $t("actions.register") }}
+            </v-btn>
           </v-flex>
         </v-card-actions>
       </v-card>

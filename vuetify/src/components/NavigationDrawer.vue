@@ -23,23 +23,22 @@
 
 
 <template>
-  <v-navigation-drawer app v-model="showDrawer" app temporary style="z-index:9999">
+  <v-navigation-drawer v-model="showDrawer" app temporary style="z-index:9999">
     <v-layout column justify-start fill-height>
-
       <!-- Avatar and Name -->
       <v-flex shrink>
         <v-sheet class="sidebar-header">
           <v-layout pt-4 px-3 pb-3 column>
             <v-flex shrink>
-                <v-avatar size="80">
-                  <img :src="currentUser.imageUrl" alt="avatar" />
-                </v-avatar>
+              <v-avatar size="80">
+                <img :src="currentUser.imageUrl" alt="avatar">
+              </v-avatar>
             </v-flex>
 
             <v-flex mt-3 class="subheading white--text">
-                {{ currentUser.firstName }} {{ currentUser.lastName }}
-                <br />
-                <small>{{ currentUser.mail }}</small>
+              {{ currentUser.firstName }} {{ currentUser.lastName }}
+              <br>
+              <small>{{ currentUser.mail }}</small>
             </v-flex>
           </v-layout>
         </v-sheet>
@@ -49,7 +48,9 @@
         <!-- My account -->
         <v-list-tile to="/account" exact>
           <v-list-tile-action>
-            <v-icon color="primary darken-2">person</v-icon>
+            <v-icon color="primary darken-2">
+              person
+            </v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('pages.account.title') }}</v-list-tile-title>
@@ -59,7 +60,9 @@
         <!-- My Shops -->
         <v-list-tile to="/account/shops">
           <v-list-tile-action>
-            <v-icon color="red darken-2">store</v-icon>
+            <v-icon color="red darken-2">
+              store
+            </v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('pages.myShops.title') }}</v-list-tile-title>
@@ -69,7 +72,9 @@
         <!-- Map -->
         <v-list-tile to="/map">
           <v-list-tile-action>
-            <v-icon color="green darken-2">map</v-icon>
+            <v-icon color="green darken-2">
+              map
+            </v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('pages.map.title') }}</v-list-tile-title>
@@ -79,7 +84,9 @@
         <!-- Favourites -->
         <v-list-tile to="/favourites">
           <v-list-tile-action>
-            <v-icon color="orange darken-2">star</v-icon>
+            <v-icon color="orange darken-2">
+              star
+            </v-icon>
           </v-list-tile-action>
           <v-list-tile-content>
             <v-list-tile-title>{{ $t('pages.favourites.title') }}</v-list-tile-title>
@@ -99,13 +106,13 @@
 </template>
 
 <script>
-import ThemeSelector from "@/components/drawer/ThemeSelector";
+// import ThemeSelector from "@/components/drawer/ThemeSelector";
 
 export default {
   name: "NavigationDrawer",
 
   components: {
-    ThemeSelector
+    // ThemeSelector
   },
 
   data() {

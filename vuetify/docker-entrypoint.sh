@@ -5,3 +5,4 @@
 
 echo "Begin Vue Build"
 npm run build:docker
+# npm run build:watch:docker
