@@ -20,14 +20,14 @@ All configuration parameters can be adapted using the provided `.env.sample file
 To deploy the platform to a new server, first make sure you have installed all of the required software in the section `Required software on Host`.
 
 1. Clone the repository to a folder. It is suggested to use `/opt/docker/<folder>` for this purpose.
-1. Copy the `.env.sample` file at the root of the folder to `.env`. Ignore other `.env.sample` files inside the `django` and `vuetify` folders.
+1. Copy the `.env.sample` file at the root of the folder to `.env`. Ignore other `.env.sample` files inside `vuetify` folder.
 1. Configure the new `.env` file to your needs.
-1. Create a new Apache2 VirtualHost using the `apache.vhost.conf` file in the root folder. Configure this host with proper SSL certificates and adapt to your needs. Make sure the domains and ports in the virtualhost configuration match with the `.env` file you previously configured.
-1. Restart Apache2 if you haven't done so yet.
+1. Create a new Apache2 VirtualHost based off the `apache.vhost.conf` file in the root folder. Configure this host with proper SSL certificates and adapt to your needs. Make sure the domains and ports in the virtualhost configuration match with the `.env` file you previously configured.
+1. Enable apache modules listed below and restart Apache service.
 1. Open port `80` and `443` on the server's firewall.
 1. At the root folder. run the command `docker-compose up`
-1. All docker containers should spin up and open their configured ports internally to the machine.
-1. The setup is complete.
+1. The Vuetify container will build the compiled files into `./dist`, this folder can now be served by the host's apache.
+1. The setup is complete. The container will autohalt.
 
 ### Required software on Host
 
